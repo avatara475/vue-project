@@ -402,7 +402,7 @@ const fetchUserData = async () => {
     const userId = localStorage.getItem('userId');
     if (!userId) throw new Error('User ID not found');
     
-    const response = await axios.get(`http://192.168.1.20:3000/api/auth/user/${userId}`, {
+    const response = await axios.get(`https://productmanagement-98nw.onrender.com/api/auth/user/${userId}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
       }
