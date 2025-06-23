@@ -6,7 +6,7 @@ const toast = useToast();
 
 // Create axios instance
 const api = axios.create({
-  baseURL: 'http://192.168.1.20:3000/api', // Your API base URL
+  baseURL: 'https://productmanagement-98nw.onrender.com/api/', // Your API base URL
   timeout: 10000, // 10 seconds timeout
 });
 

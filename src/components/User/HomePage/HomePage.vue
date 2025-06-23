@@ -138,7 +138,7 @@
             <select
               v-model="itemsPerPage"
               @change="handleItemsPerPageChange"
-              class="block w-20 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-600 dark:text-white dark:border-gray-500"
+              class="block w-20 pl-1 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-600 dark:text-white dark:border-gray-500"
             >
               <option v-for="option in itemsPerPageOptions" :key="option" :value="option">
                 {{ option }}
