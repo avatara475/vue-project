@@ -8,9 +8,13 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
-    //  vueDevTools(),
+    vue({
+      reactivityTransform: true, // Enables $ref sugar (optional but useful)
+      vapor: true               // ✅ Enables Vapor Mode (Experimental)
+    }),
+      // vueDevTools(),
      tailwindcss(),
+     
   ],
   resolve: {
     alias: {

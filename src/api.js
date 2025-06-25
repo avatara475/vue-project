@@ -4,10 +4,11 @@ import { useToast } from 'vue-toastification';
 
 const toast = useToast();
 
+
 // Create axios instance
 const api = axios.create({
-  baseURL: 'https://productmanagement-98nw.onrender.com/api/', // Your API base URL
-  timeout: 10000, // 10 seconds timeout
+  baseURL:  import.meta.env.VITE_API_BASE_URL, // Your API base URL
+  timeout: 10000, // 15 seconds timeout
 });
 
 // Request interceptor

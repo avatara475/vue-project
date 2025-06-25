@@ -64,168 +64,36 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-      <!-- Loading State -->
-      <div v-if="loading" class="p-8 text-center">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-        <p class="mt-2 text-gray-600 dark:text-gray-300">Loading products...</p>
-      </div>
-      
-      <!-- Error State -->
-      <div v-else-if="error" class="p-4 bg-red-100 text-red-700 rounded">
-        {{ error }}
-      </div>
-      
-      <!-- Product Table -->
-      <div v-else>
-        <div class="overflow-x-auto">
-          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" v-if="products.length">
-            <thead class="bg-gray-50 dark:bg-gray-700">
-              <tr>
-                <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID</th>
-                <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Title</th>
-                <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">Description</th>
-                <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Price</th>
-                <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider hidden xs:table-cell">Category</th>
-                <th scope="col" class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-              <tr v-for="product in products" :key="product.id" class="hover:bg-gray-50 dark:hover:bg-gray-700" >
-                <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ product.id }}</td>
-                <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{{ product.title }}</td>
-                <td class="px-4 sm:px-6 py-4 text-sm text-gray-500 dark:text-gray-300 max-w-xs truncate hidden sm:table-cell">{{ product.description }}</td>
-                <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">${{ product.price }}</td>
-                <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 hidden xs:table-cell">
-                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                    {{ product.category }}
-                  </span>
-                </td>
-                <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button 
-                    @click="editProduct(product)"
-                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-2 sm:mr-4"
-                  >
-                    Edit
-                  </button>
-                  <button 
-                    @click="deleteProduct(product.id)"
-                    class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              
-            </tbody>
-          </table>
-          <table v-else class="text-white text-center ml-[40%]">
-            No product available
-          </table>
-        </div>
-        
-        <!-- Pagination -->
-        <div class="bg-gray-50 dark:bg-gray-700 px-2 sm:px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0 border-t border-gray-200 dark:border-gray-600">
-          <!-- Mobile Pagination -->
-          <div class="flex-1 flex justify-between sm:hidden w-full">
-            <button 
-              @click="prevPage"
-              :disabled="currentPage === 1"
-              class="relative inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 dark:bg-gray-600 dark:text-white dark:border-gray-500 disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <span class="text-sm text-gray-700 dark:text-gray-300 mx-2 self-center">
-              Page {{ currentPage }} of {{ totalPages }}
-            </span>
-            <button 
-              @click="nextPage"
-              :disabled="currentPage === totalPages"
-              class="relative inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 dark:bg-gray-600 dark:text-white dark:border-gray-500 disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div>
-          
-          <!-- Desktop Pagination -->
-          <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between w-full">
-            <div class="flex items-center space-x-2">
-              <p class="text-sm text-gray-700 dark:text-gray-300">
-                Show
-              </p>
-              <select
-                v-model="itemsPerPage"
-                @change="handleItemsPerPageChange"
-                class="block w-20 pl-3 pr-8 py-1 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md dark:bg-gray-600 dark:text-white dark:border-gray-500"
-              >
-                <option v-for="option in itemsPerPageOptions" :key="option" :value="option">
-                  {{ option }}
-                </option>
-              </select>
-              <p class="text-sm text-gray-700 dark:text-gray-300">
-                per page
-              </p>
-            </div>
-            <div>
-              <p class="text-sm text-gray-700 dark:text-gray-300">
-                Showing <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
-                to <span class="font-medium">{{ Math.min(currentPage * itemsPerPage, totalProducts) }}</span>
-                of <span class="font-medium">{{ totalProducts }}</span>
-              </p>
-            </div>
-            <div>
-              <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-                <button
-                  @click="prevPage"
-                  :disabled="currentPage === 1"
-                  class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 dark:bg-gray-600 dark:text-white dark:border-gray-500 disabled:opacity-50"
-                >
-                  <span class="sr-only">Previous</span>
-                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                </button>
-                <template v-for="page in visiblePages" :key="page">
-                  <button
-                    v-if="Math.abs(page - currentPage) <= 2 || page === 1 || page === totalPages"
-                    @click="goToPage(page)"
-                    :class="[page === currentPage ? 'bg-blue-50 border-blue-500 text-blue-600 dark:bg-blue-800 dark:text-white' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 dark:bg-gray-600 dark:text-gray-300', 'relative inline-flex items-center px-4 py-2 border text-sm font-medium']"
-                  >
-                    {{ page }}
-                  </button>
-                  <span 
-                    v-else-if="Math.abs(page - currentPage) === 3" 
-                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 dark:bg-gray-600 dark:text-gray-300"
-                  >
-                    ...
-                  </span>
-                </template>
-                <button
-                  @click="nextPage"
-                  :disabled="currentPage === totalPages"
-                  class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 dark:bg-gray-600 dark:text-white dark:border-gray-500 disabled:opacity-50"
-                >
-                  <span class="sr-only">Next</span>
-                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                  </svg>
-                </button>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ReusableTable
+      :data="products"
+      :columns="productColumns"
+      :loading="loading"
+      :error="error"
+      :current-page="currentPage"
+      :total-pages="totalPages"
+      :total-items="totalProducts"
+      :items-per-page="itemsPerPage"
+      @edit="editProduct"
+      @delete="deleteProduct"
+      @prev-page="prevPage"
+      @next-page="nextPage"
+      @page-change="goToPage"
+      @items-per-page-change="handleItemsPerPageChange"
+    />
 
-    <!-- Modals (unchanged) -->
-    <AddProductModal 
-      ref="addModal" 
-      @product-added="fetchProducts" 
-    />
-    <EditProductModal 
-      ref="editModal" 
-      @product-updated="fetchProducts" 
-    />
+
+   <ProductModal 
+   ref="addModal" 
+   mode="add" 
+   @product-added="refreshProducts" 
+   />
+
+   <ProductModal 
+   ref="editModal" 
+   mode="edit" 
+   @product-updated="refreshProducts" 
+   /> 
+
     <ConfirmationModal
       ref="deleteModal"
       title="Delete Product"
@@ -236,15 +104,15 @@
   </div>
 </template>
 
+
 <script setup>
-import { ref, onMounted, computed } from 'vue';
-import axios from 'axios';
+import { ref, onMounted, computed,h } from 'vue';
 import { useToast } from 'vue-toastification';
 import { debounce } from 'lodash';
 import ConfirmationModal from '../Dashbaord/ConfirmationModal.vue';
-import AddProductModal from './AddProductModal.vue';
-import EditProductModal from './EditProductModal.vue';
-import api from '@/api'
+import ReusableTable from '@/ReusableTable.vue';
+import ProductModal from './ProductModal.vue';
+import api from '@/api';
 
 const toast = useToast();
 const products = ref([]);
@@ -266,23 +134,49 @@ const searchQuery = ref('');
 const minPrice = ref('');
 const maxPrice = ref('');
 
-const visiblePages = computed(() => {
-  const maxVisiblePages = 5;
-  const pages = [];
-  let startPage = Math.max(1, currentPage.value - Math.floor(maxVisiblePages / 2));
-  let endPage = startPage + maxVisiblePages - 1;
-  
-  if (endPage > totalPages.value) {
-    endPage = totalPages.value;
-    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+
+const productColumns = [
+  {
+    key: 'title',
+    label: 'Title',
+    fontWeight: true,
+    textColor: 'text-gray-900 dark:text-white',
+    sortable: true
+  },
+  {
+    key: 'description',
+    label: 'Description',
+    hiddenClass: 'hidden sm:table-cell',
+    nowrap: false,
+    sortable: true
+  },
+  {
+    key: 'price',
+    label: 'Price',
+    nowrap: true,
+    format: (value) => `$${value}`,
+    sortable: true
+  },
+  {
+    key: 'category',
+    label: 'Category',
+    hiddenClass: 'hidden xs:table-cell',
+    nowrap: true,
+    customRender: (props) => h('span', {
+      class: 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+    }, props.value),
+    sortable: true
   }
-  
-  for (let i = startPage; i <= endPage; i++) {
-    pages.push(i);
-  }
-  
-  return pages;
-});
+];
+
+const editProduct = (product) => {
+  editModal.value.open(product);
+};
+
+const deleteProduct = (productId) => {
+  productToDelete.value = productId;
+  deleteModal.value.open();
+};
 
 const preventInvalidChars = (e) => {
   if (['e', 'E', '+', '-'].includes(e.key)) {
@@ -292,7 +186,7 @@ const preventInvalidChars = (e) => {
 
 // Debounced search function
 const debouncedSearch = debounce(() => {
-  currentPage.value = 1; // Reset to first page when searching
+  currentPage.value = 1;
   fetchProducts();
 }, 500);
 
@@ -301,18 +195,15 @@ const fetchProducts = async () => {
     loading.value = true;
     error.value = null;
     
-    const token = localStorage.getItem('authToken');
     const params = {
       page: currentPage.value,
       limit: itemsPerPage.value,
     };
 
-    // Add search query if exists
     if (searchQuery.value) {
       params.search = searchQuery.value.trim();
     }
 
-    // Add price filters if they exist
     if (minPrice.value) {
       params.minPrice = minPrice.value;
     }
@@ -320,16 +211,9 @@ const fetchProducts = async () => {
       params.maxPrice = maxPrice.value;
     }
 
-    // const response = await axios.get('http://192.168.1.22:3000/api/products/get', {
-    //   params,
-    //   headers: {
-    //     'Authorization': `Bearer ${token}`
-    //   }
-    // });
-
-    const response = await api.get('/products/get', { params })
-    
-    products.value = response.products;
+    const response = await api.get('/products/get', { params });
+    console.log("API Response:", response);
+    products.value = response.products || response.data?.products ;
     totalProducts.value = response.totalProducts;
     totalPages.value = Math.ceil(response.totalProducts / itemsPerPage.value);
   } catch (err) {
@@ -341,7 +225,7 @@ const fetchProducts = async () => {
 };
 
 const applyPriceFilter = () => {
-  currentPage.value = 1; // Reset to first page when applying filters
+  currentPage.value = 1;
   fetchProducts();
 };
 
@@ -353,8 +237,9 @@ const resetFilters = () => {
   fetchProducts();
 };
 
-const handleItemsPerPageChange = () => {
-  currentPage.value = 1; // Reset to first page when changing items per page
+const handleItemsPerPageChange = (newValue) => {
+  itemsPerPage.value = newValue;
+  currentPage.value = 1;
   fetchProducts();
 };
 
@@ -362,26 +247,9 @@ const openAddModal = () => {
   addModal.value.open();
 };
 
-const editProduct = (product) => {
-  editModal.value.open(product);
-};
-
-const deleteProduct = (productId) => {
-  productToDelete.value = productId;
-  deleteModal.value.open();
-};
-
 const confirmDelete = async () => {
   try {
-    const token = localStorage.getItem('authToken');
-    // await axios.delete(`http://192.168.1.22:3000/api/products/product/${productToDelete.value}`, {
-    //   headers: {
-    //     'Authorization': `Bearer ${token}`
-    //   }
-    // });
-
-    await api.delete(`/products/product/${productToDelete.value}`)
-    
+    await api.delete(`/products/product/${productToDelete.value}`);
     toast.success('Product deleted successfully');
     await fetchProducts();
   } catch (err) {

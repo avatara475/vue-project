@@ -13,7 +13,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: ()=>import('../User/HomePage/HomePage.vue'),
     meta: { requiresAuth: true, allowedRoles: ['user'] }
   },
   // {
@@ -25,37 +25,37 @@ const routes = [
   {
     path: '/admin',
     name: 'Admin',
-    component: Admin,
+    component: ()=>import('../Admin/Dashbaord/Admin.vue'),
     meta: { requiresAuth: true, allowedRoles: ['admin'] }
   },
   {
     path: '/manage',
     name: 'Manage',
-    component: Manage,
+    component: ()=>import('../Admin/manage/manage.vue'),
     meta: { requiresAuth: true, allowedRoles: ['admin'] }
   },
   {
     path: '/super',
     name: 'Super',
-    component: SuperAdmin,
+    component: ()=>import('../SuperAdmin/SuperAdmin.vue'),
     meta: { requiresAuth: true, allowedRoles: ['superadmin'] }
   },
   {
     path: '/superproduct',
     name: 'SuperProduct',
-    component: ProductManage,
+    component: ()=>import('../SuperAdmin/ProductManage.vue'),
     meta: { requiresAuth: true, allowedRoles: ['superadmin'] }
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: ()=>import('../login.vue'),
     meta: { requiresAuth: false }
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup,
+    component: ()=>import('../signup.vue'),
     meta: { requiresAuth: false }
   },
   
