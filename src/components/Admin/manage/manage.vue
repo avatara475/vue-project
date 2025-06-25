@@ -85,13 +85,13 @@
    <ProductModal 
    ref="addModal" 
    mode="add" 
-   @product-added="refreshProducts" 
+   @product-added="fetchProducts" 
    />
 
    <ProductModal 
    ref="editModal" 
    mode="edit" 
-   @product-updated="refreshProducts" 
+   @product-updated="fetchProducts" 
    /> 
 
     <ConfirmationModal
@@ -137,6 +137,51 @@ const maxPrice = ref('');
 
 const productColumns = [
   {
+    key: 'image',
+    label: 'Image',
+    customRender: (props) => {
+      // If no image data, return a placeholder
+      if (!props.value) {
+        return h('div', { 
+          class: 'w-10 h-10 bg-gray-200 rounded flex items-center justify-center' 
+        }, [
+          h('svg', { 
+            class: 'w-6 h-6 text-gray-400', 
+            fill: 'none', 
+            stroke: 'currentColor', 
+            viewBox: '0 0 24 24' 
+          }, [
+            h('path', { 
+              'stroke-linecap': 'round', 
+              'stroke-linejoin': 'round', 
+              'stroke-width': '2', 
+              d: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' 
+            })
+          ])
+        ]);
+      }
+
+      // Check if the value is already a data URL (starts with 'data:image')
+      const src = props.value.startsWith('data:image') 
+        ? props.value 
+        : `data:image/jpeg;base64,${props.value}`;
+
+      return h('img', {
+        src: src,
+        class: 'w-10 h-10 object-cover rounded',
+        alt: 'Product image',
+        onError: (e) => {
+          e.target.style.display = 'none';
+          const fallback = document.createElement('div');
+          fallback.className = 'w-full h-full bg-gray-200 rounded flex items-center justify-center';
+          fallback.innerHTML = '<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>';
+          e.target.parentNode.appendChild(fallback);
+        }
+      });
+    },
+    sortable: false
+  },
+  {
     key: 'title',
     label: 'Title',
     fontWeight: true,
@@ -160,7 +205,6 @@ const productColumns = [
   {
     key: 'category',
     label: 'Category',
-    hiddenClass: 'hidden xs:table-cell',
     nowrap: true,
     customRender: (props) => h('span', {
       class: 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
