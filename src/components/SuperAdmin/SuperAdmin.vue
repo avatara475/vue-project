@@ -1,39 +1,82 @@
 <template>
   <div class="container mx-auto px-4 py-12">
     <!-- 403 Forbidden Message -->
-    <div v-if="forbiddenError" class="forbidden-message bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md text-center">
+    <div
+      v-if="forbiddenError"
+      class="forbidden-message bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md text-center"
+    >
       <h1 class="text-2xl font-bold text-red-600 mb-4">403 Forbidden</h1>
-      <p class="text-gray-600 dark:text-gray-300 mb-6">You don't have permission to access this resource.</p>
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        You don't have permission to access this resource.
+      </p>
     </div>
 
     <!-- Main Content -->
     <div v-else>
       <div class="flex flex-col sm:flex-row gap-4 mb-6">
         <!-- Total Admins Card -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1 min-w-[250px]">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1 min-w-[250px]"
+        >
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Admins</p>
-              <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ totalAdmin }}</p>
+              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Total Admins
+              </p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-white">
+                {{ totalAdmin }}
+              </p>
             </div>
-            <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-200">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            <div
+              class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                />
               </svg>
             </div>
           </div>
         </div>
 
         <!-- Total Users Card -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1 min-w-[250px]">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1 min-w-[250px]"
+        >
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Users</p>
-              <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ totalUsers }}</p>
+              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Total Users
+              </p>
+              <p class="text-2xl font-semibold text-gray-900 dark:text-white">
+                {{ totalUsers }}
+              </p>
             </div>
-            <div class="p-3 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-200">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            <div
+              class="p-3 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
               </svg>
             </div>
           </div>
@@ -41,26 +84,41 @@
       </div>
 
       <div class="mb-3 flex justify-between">
-            <UserInfoModal
-            btitle="Show SuperAdmin Info"
-            title="SuperAdmin Information"/>
+        <UserInfoModal
+          btitle="Show SuperAdmin Info"
+          title="SuperAdmin Information"
+        />
 
-            <button
-        @click="openAddModal"
-        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Add New User
-      </button>
+        <button
+          @click="openAddModal"
+          class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Add New User
+        </button>
       </div>
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <div
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6"
+      >
         <h1 class="text-2xl font-bold text-blue-600">Admin Management</h1>
 
-        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-end sm:items-center">
+        <div
+          class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-end sm:items-center"
+        >
           <!-- Search Input -->
           <div class="relative flex-grow min-w-[200px]">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <svg
+                class="h-5 w-5 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clip-rule="evenodd"
+                />
               </svg>
             </div>
             <input
@@ -71,10 +129,9 @@
               placeholder="Search users..."
             />
           </div>
-          
         </div>
       </div>
-      
+
       <!-- Main Table -->
       <ReusableTable
         :data="admins"
@@ -108,15 +165,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, h } from 'vue';
-import { useErrorStore } from '@/stores/error';
-import { debounce } from 'lodash';
-import ConfirmationModal from '../Admin/Dashbaord/ConfirmationModal.vue';
-import UserInfoModal from '../User/HomePage/UserInfoModal.vue';
-import ReusableTable from '@/ReusableTable.vue';
-import api from '@/api';
-import UserModal from '../Admin/Dashbaord/UserModel.vue';
-
+import { ref, onMounted, computed, h } from "vue";
+import { useErrorStore } from "@/stores/error";
+import { debounce } from "lodash";
+import ConfirmationModal from "../Admin/Dashbaord/ConfirmationModal.vue";
+import UserInfoModal from "../User/HomePage/UserInfoModal.vue";
+import ReusableTable from "@/ReusableTable.vue";
+import api from "@/api";
+import UserModal from "../Admin/Dashbaord/UserModel.vue";
 
 const admins = ref([]);
 const totalAdmin = ref(0);
@@ -132,7 +188,7 @@ const currentPage = ref(1);
 const itemsPerPage = ref(10);
 const totalPages = ref(1);
 const itemsPerPageOptions = [5, 10, 20, 30, 50];
-const searchQuery = ref('');
+const searchQuery = ref("");
 
 const addUserModal = ref(null);
 const editUserModal = ref(null);
@@ -141,29 +197,38 @@ const adminToDelete = ref(null);
 
 const adminColumns = [
   {
-    key: 'name',
-    label: 'Name',
+    key: "name",
+    label: "Name",
     fontWeight: true,
-    textColor: 'text-gray-900 dark:text-white'
+    textColor: "text-gray-900 dark:text-white",
   },
   {
-    key: 'email',
-    label: 'Email',
-    nowrap: true
-  },
-  {
-    key: 'role',
-    label: 'Role',
+    key: "email",
+    label: "Email",
     nowrap: true,
-    customRender: (props) => h('span', {
-      class: {
-        'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200': props.value === 'admin',
-        'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200': props.value === 'user',
-        'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200': props.value === 'superadmin'
-      },
-      class: 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full'
-    }, props.value)
-  }
+  },
+  {
+    key: "role",
+    label: "Role",
+    nowrap: true,
+    customRender: (props) =>
+      h(
+        "span",
+        {
+          class: {
+            "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200":
+              props.value === "admin",
+            "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200":
+              props.value === "user",
+            "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200":
+              props.value === "superadmin",
+          },
+          class:
+            "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
+        },
+        props.value,
+      ),
+  },
 ];
 
 const handleApiError = (err) => {
@@ -172,9 +237,10 @@ const handleApiError = (err) => {
     errorStore.set403Error(true);
     return true;
   }
-  
-  error.value = err.response?.data?.message || err.message || 'An error occurred';
-  console.error('API Error:', err);
+
+  error.value =
+    err.response?.data?.message || err.message || "An error occurred";
+  console.error("API Error:", err);
   return false;
 };
 
@@ -193,7 +259,8 @@ const confirmDelete = async () => {
     await fetchAdmins();
   } catch (err) {
     if (!handleApiError(err)) {
-      error.value = err.response?.data?.message || err.message || 'Failed to delete admin';
+      error.value =
+        err.response?.data?.message || err.message || "Failed to delete admin";
     }
   } finally {
     adminToDelete.value = null;
@@ -204,7 +271,7 @@ const fetchAdmins = async () => {
   try {
     loading.value = true;
     error.value = null;
-    
+
     const params = {
       page: currentPage.value,
       limit: itemsPerPage.value,
@@ -214,11 +281,15 @@ const fetchAdmins = async () => {
       params.search = searchQuery.value.trim();
     }
 
-    const response = await api.get('/auth/superadmin/getadmins', { params });
-    
+    const response = await api.get("/auth/superadmin/getadmins", { params });
+
     admins.value = response.users;
-    totalAdmin.value = response.users.filter(admin => admin.role === 'admin').length;
-    totalUsers.value = response.users.filter(user => user.role === 'user').length;
+    totalAdmin.value = response.users.filter(
+      (admin) => admin.role === "admin",
+    ).length;
+    totalUsers.value = response.users.filter(
+      (user) => user.role === "user",
+    ).length;
     totalUsersCount.value = response.totalusers || 0;
     totalPages.value = Math.ceil(totalUsersCount.value / itemsPerPage.value);
   } catch (err) {
@@ -269,4 +340,3 @@ onMounted(() => {
   fetchAdmins();
 });
 </script>
-

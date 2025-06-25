@@ -11,13 +11,13 @@
 //   }
 // });
 
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
-export const useErrorStore = defineStore('error', {
+export const useErrorStore = defineStore("error", {
   state: () => ({
     has403Error: false,
     last403Path: null,
-    roleMismatch: false
+    roleMismatch: false,
   }),
   actions: {
     set403Error(status, path = null, roleMismatch = false) {
@@ -29,6 +29,6 @@ export const useErrorStore = defineStore('error', {
       this.has403Error = false;
       this.last403Path = null;
       this.roleMismatch = false;
-    }
-  }
+    },
+  },
 });

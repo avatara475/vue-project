@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 .dark-mode {
   --bg-primary: #1a202c;
   --bg-secondary: #2d3748;
@@ -18,5 +17,7 @@
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
