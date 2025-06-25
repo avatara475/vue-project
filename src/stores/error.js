@@ -1,16 +1,3 @@
-// import { defineStore } from 'pinia';
-
-// export const useErrorStore = defineStore('error', {
-//   state: () => ({
-//     has403Error: false
-//   }),
-//   actions: {
-//     set403Error(value) {
-//       this.has403Error = value;
-//     }
-//   }
-// });
-
 import { defineStore } from "pinia";
 
 export const useErrorStore = defineStore("error", {

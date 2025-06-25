@@ -30,14 +30,6 @@
             >Home</router-link
           >
 
-          <!-- Show Product only for user role -->
-          <!-- <router-link 
-            v-if="userRole === 'user'"
-            to="/product" 
-            class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-500 transition duration-300"
-            active-class="text-blue-500 border-b-4 border-blue-500"
-          >Product</router-link> -->
-
           <!-- Show Admin only for admin role -->
           <router-link
             v-if="userRole === 'admin'"
@@ -165,14 +157,6 @@
         >Home</router-link
       >
 
-      <!-- Show Product only for user role -->
-      <!-- <router-link 
-        v-if="userRole === 'user'"
-        to="/product" 
-        class="block py-2 px-4 text-sm hover:bg-gray-200 text-gray-950"
-        active-class="bg-blue-500 text-white"
-      >Product</router-link> -->
-
       <!-- Show Admin only for admin role -->
       <router-link
         v-if="userRole === 'admin'"
@@ -218,81 +202,6 @@
   </nav>
 </template>
 
-<!-- <script setup>
-import { ref, computed, watch,onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth'; // Assuming you're using Pinia
-import { useToast } from 'vue-toastification';
-import { useThemeStore } from '@/stores/theme'
-import { useErrorStore } from '@/stores/error'; // Add this import
-import axios from 'axios';
-
-
-
-const themeStore = useThemeStore()
-const errorStore = useErrorStore(); // Add this line
-
-const router = useRouter();
-const authStore = useAuthStore();
-const isOpen = ref(false);
-const toast = useToast()
-const user = ref()
-
-// Reactive properties
-const isAuthenticated = computed(() => authStore.isAuthenticated);
-const userRole = computed(() => authStore.userRole);
-
-// Watch for route changes to close mobile menu
-watch(() => router.currentRoute.value, () => {
-  isOpen.value = false;
-});
-
-const fetchUserData = async () => {
-  try {
-    const userId = localStorage.getItem('userId')
-    if (!userId) throw new Error('User ID not found')
-    
-    const response = await axios.get(`http://192.168.1.14:3000/api/auth/user/${userId}`, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-      }
-    })
-    
-    
-    // user.value = Array.isArray(response.data) ? response.data[0] : response.data
-    // Extract user data from response
-    const userData = Array.isArray(response.data) ? response.data[0] : response.data;
-    console.log('User data:', userData);
-
-    // Store the user role in localStorage
-    if (userData && userData.role) {
-      localStorage.setItem('userRole', userData.role);
-      console.log('Role stored:', userData.role);
-    } else {
-      throw new Error('Role not found in response');
-    }
-
-    // Store the complete user data if needed
-    user.value = userData;
-  } catch (err) {
-    console.error('Fetch error:', err)
-  }
-}
-
-const toggleMenu = () => {
-  isOpen.value = !isOpen.value;
-};
-
-function logout() {
-  authStore.logout();
-  router.push('/login');
-  toast.warning("User LogOut..")
-}
-onMounted(() => {
-  fetchUserData();
-});
-</script> -->
-
 <script setup>
 import { ref, computed, watch, onMounted } from "vue";
 import { useRouter } from "vue-router";
@@ -321,14 +230,6 @@ const roleRoutes = {
   superadmin: ["/super", "/superproduct"],
 };
 
-// // Handle role changes and redirect
-// const handleRoleChange = (newRole) => {
-//   const currentRoute = router.currentRoute.value.path;
-//   if (!roleRoutes[newRole]?.some(route => currentRoute.startsWith(route))) {
-//     router.push(roleRoutes[newRole]?.[0] || '/');
-//   }
-// };
-
 // Enhanced role change handler
 const handleRoleChange = (newRole) => {
   const currentRoute = router.currentRoute.value.path;
@@ -344,29 +245,6 @@ const handleRoleChange = (newRole) => {
     router.push(redirectPath);
   }
 };
-
-// Watch for 403 errors from any page
-// watch(
-//   () => errorStore.has403Error,
-//   (hasError) => {
-//     if (hasError) {
-//       // If roles match but still got 403, force logout
-//       if (!errorStore.roleMismatch) {
-//         authStore.logout();
-//         router.push('/login');
-//       }
-//       errorStore.reset403Error();
-//     }
-//   },
-//   { immediate: true }
-// );
-
-// // Watch for role changes
-// watch(userRole, (newRole) => {
-//   if (newRole) {
-//     handleRoleChange(newRole);
-//   }
-// });
 
 // Watch for role changes more effectively
 watch(
@@ -386,64 +264,6 @@ watch(
     isOpen.value = false;
   },
 );
-
-// const fetchUserData = async () => {
-//   try {
-//     const userId = localStorage.getItem('userId');
-//     if (!userId) throw new Error('User ID not found');
-
-//     const response = await axios.get(`http://192.168.1.22:3000/api/auth/user/${userId}`, {
-//       headers: {
-//         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-//       }
-//     });
-
-//     const userData = Array.isArray(response.data) ? response.data[0] : response.data;
-//     console.log('User data:', userData);
-
-//     if (userData?.role) {
-//       // Use authStore to update role instead of directly modifying localStorage
-//       authStore.setRole(userData.role);
-
-//       // Handle the route change immediately
-//       handleRoleChange(userData.role);
-//     }
-
-//     user.value = userData;
-//   } catch (err) {
-//     console.error('Fetch error:', err);
-//     if (err.response?.status === 401) {
-//       authStore.logout();
-//     }
-//   }
-// };
-
-// const fetchUserData = async () => {
-//   try {
-//     const userId = localStorage.getItem('userId');
-//     if (!userId) throw new Error('User ID not found');
-
-//     const response = await axios.get(`http://192.168.1.22:3000/api/auth/user/${userId}`, {
-//       headers: {
-//         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-//       }
-//     });
-
-//     const userData = Array.isArray(response.data) ? response.data[0] : response.data;
-
-//     if (userData?.role) {
-//       authStore.setRole(userData.role);
-//       handleRoleChange(userData.role);
-//     }
-
-//     user.value = userData;
-//   } catch (err) {
-//     console.error('Fetch error:', err);
-//     if (err.response?.status === 401) {
-//       authStore.logout();
-//     }
-//   }
-// };
 
 const fetchUserData = async () => {
   try {

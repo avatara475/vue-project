@@ -33,11 +33,6 @@ export const useAuthStore = defineStore("auth", {
     setRole(role) {
       this.role = role;
       localStorage.setItem("userRole", role);
-
-      // // Force logout if role was changed by SuperAdmin
-      // if (role !== this.role && !window.location.pathname.includes('login')) {
-      //   this.logout(); // Triggers logout + clears storage
-      // }
     },
   },
 });

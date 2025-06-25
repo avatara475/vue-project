@@ -29,20 +29,6 @@
             </p>
           </div>
 
-          <!-- <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              id="password"
-              v-model="form.password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-950"
-              :class="{ 'border-red-500': errors.password }"
-            />
-            <p v-if="errors.password" class="mt-1 text-sm text-red-600">{{ errors.password }}</p>
-          </div> -->
-
           <div>
             <label
               for="password"
@@ -135,103 +121,7 @@
     </div>
   </div>
 </template>
-<!-- 
-<script setup>
-import { ref } from 'vue';
-import * as yup from 'yup';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
-import { useToast } from 'vue-toastification';
-import axios from 'axios';
 
-const authStore = useAuthStore();
-const toast = useToast();
-const router = useRouter();
-const showPassword = ref(false);
-
-// Form state
-const form = ref({
-  email: '',
-  password: '',
-  rememberMe: false
-});
-
-// Validation errors
-const errors = ref({});
-const isSubmitting = ref(false);
-
-const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value;
-};
-
-// Validation schema
-const schema = yup.object().shape({
-  email: yup.string()
-    .email('Please enter a valid email address')
-    .required('Email is required'),
-  password: yup.string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required')
-});
-
-// Create Axios instance with base URL
-const api = axios.create({
-  baseURL: 'http://192.168.1.14:3000/api',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
-// Form submission handler
-const handleSubmit = async () => {
-  isSubmitting.value = true;
-  errors.value = {}; // Clear previous errors
-
-  try {
-    // Validate form
-    await schema.validate(form.value, { abortEarly: false });
-
-    // API call with Axios
-    const { data } = await api.post('/auth/login', {
-      email: form.value.email,
-      password: form.value.password
-    });
-
-    // Store authentication state
-    authStore.login(data);
-    localStorage.setItem('authToken', data.token);
-    localStorage.setItem('userRole', data.user.role);
-    localStorage.setItem('userId', data.user.id);
-
-    // Show success message
-    toast.success(data.message || 'Login successful');
-
-    // Redirect based on role
-    const redirectPath = data.user.role === 'admin' ? '/admin' : '/';
-    router.push(redirectPath);
-
-  } catch (err) {
-    if (err.inner) {
-      // Yup validation errors
-      err.inner.forEach(error => {
-        errors.value[error.path] = error.message;
-      });
-    } else if (err.response) {
-      // Axios error response
-      const errorMessage = err.response.data?.message || 'Login failed';
-      errors.value.apiError = errorMessage;
-      toast.error(errorMessage);
-    } else {
-      // Network or other errors
-      errors.value.apiError = err.message;
-      toast.error(err.message || 'An error occurred during login');
-    }
-  } finally {
-    isSubmitting.value = false;
-  }
-};
-
-</script> -->
 <script setup>
 import { ref, watch } from "vue";
 import * as yup from "yup";
@@ -320,14 +210,6 @@ const validateForm = async () => {
     return false;
   }
 };
-
-// Create Axios instance with base URL
-// const api = axios.create({
-//   baseURL: 'http://192.168.1.20:3000/api',
-//   headers: {
-//     'Content-Type': 'application/json'
-//   }
-// });
 
 // Form submission handler
 const handleSubmit = async () => {
