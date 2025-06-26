@@ -1,21 +1,11 @@
 <template>
-  <nav
-    class="bg-white shadow-lg"
-    v-if="isAuthenticated && !errorStore.has403Error"
-  >
+  <nav class="bg-white shadow-lg" v-if="isAuthenticated && !errorStore.has403Error">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex justify-between">
         <!-- Website Logo -->
         <div>
-          <router-link
-            to="/"
-            class="flex items-center py-4 px-2 text-gray-700 hover:text-gray-900"
-          >
-            <img
-              src="../../assets/admin.png"
-              alt=""
-              class="w-10 rounded-full"
-            />
+          <router-link to="/" class="flex items-center py-4 px-2 text-gray-700 hover:text-gray-900">
+            <img src="../../assets/admin.png" alt="" class="w-10 rounded-full" />
           </router-link>
         </div>
 
@@ -191,10 +181,7 @@
       >
 
       <div class="border-t border-gray-200 pt-2 pb-2">
-        <button
-          @click="logout"
-          class="block py-2 px-4 text-sm hover:bg-gray-200 text-gray-950"
-        >
+        <button @click="logout" class="block py-2 px-4 text-sm hover:bg-gray-200 text-gray-950">
           Log Out
         </button>
       </div>
@@ -236,9 +223,7 @@ const handleRoleChange = (newRole) => {
   const allowedRoutes = roleRoutes[newRole] || [];
 
   // Check if current route is allowed for new role
-  const isRouteAllowed = allowedRoutes.some((route) =>
-    currentRoute.startsWith(route),
-  );
+  const isRouteAllowed = allowedRoutes.some((route) => currentRoute.startsWith(route));
 
   if (!isRouteAllowed) {
     const redirectPath = allowedRoutes[0] || "/";
@@ -254,7 +239,7 @@ watch(
       handleRoleChange(newRole);
     }
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 // Watch for route changes to close mobile menu
@@ -262,7 +247,7 @@ watch(
   () => router.currentRoute.value,
   () => {
     isOpen.value = false;
-  },
+  }
 );
 
 const fetchUserData = async () => {
@@ -276,12 +261,10 @@ const fetchUserData = async () => {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
-      },
+      }
     );
 
-    const userData = Array.isArray(response.data)
-      ? response.data[0]
-      : response.data;
+    const userData = Array.isArray(response.data) ? response.data[0] : response.data;
     const localStorageRole = localStorage.getItem("userRole");
 
     if (userData?.role) {
@@ -312,7 +295,7 @@ watch(
       // Re-fetch user data to verify role consistency
       fetchUserData();
     }
-  },
+  }
 );
 
 const toggleMenu = () => {

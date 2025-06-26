@@ -38,9 +38,7 @@
         <!-- Modal content -->
         <div class="p-6">
           <div v-if="loading" class="flex justify-center">
-            <div
-              class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"
-            ></div>
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
           </div>
 
           <div v-else-if="error" class="text-red-500 text-center">
@@ -83,9 +81,7 @@
             </div>
           </div>
 
-          <div v-else class="text-gray-500 text-center">
-            No user data available
-          </div>
+          <div v-else class="text-gray-500 text-center">No user data available</div>
         </div>
       </div>
     </div>
@@ -98,10 +94,7 @@
       <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
         <div class="flex justify-between items-center border-b p-4">
           <h3 class="text-lg font-semibold text-gray-950">Update Profile</h3>
-          <button
-            @click="closeUpdateModal"
-            class="text-gray-500 hover:text-gray-700"
-          >
+          <button @click="closeUpdateModal" class="text-gray-500 hover:text-gray-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
@@ -123,12 +116,7 @@
           <form @submit.prevent="handleSubmit">
             <!-- Name Field -->
             <div class="mb-4">
-              <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="name"
-              >
-                Name
-              </label>
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="name"> Name </label>
               <input
                 v-model="updateForm.name"
                 @blur="handleBlur('name')"
@@ -145,14 +133,9 @@
 
             <!-- Image Upload -->
             <div class="mb-6">
-              <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="image"
-              >
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
                 Profile Image
-                <span
-                  v-if="user?.image && user.image !== 'null'"
-                  class="text-gray-500 font-normal"
+                <span v-if="user?.image && user.image !== 'null'" class="text-gray-500 font-normal"
                   >(Optional)</span
                 >
               </label>
@@ -192,15 +175,9 @@
                     type="button"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   >
-                    {{
-                      user?.image && user.image !== "null"
-                        ? "Change Image"
-                        : "Add Image"
-                    }}
+                    {{ user?.image && user.image !== "null" ? "Change Image" : "Add Image" }}
                   </button>
-                  <p class="text-xs text-gray-500 mt-1">
-                    JPEG, PNG only (Max 50kb)
-                  </p>
+                  <p class="text-xs text-gray-500 mt-1">JPEG, PNG only (Max 50kb)</p>
                 </div>
               </div>
               <p v-if="errors.image" class="text-red-500 text-xs italic mt-1">
@@ -287,14 +264,10 @@ const schema = yup.object().shape({
       if (!value) return true; // image is optional
       return value.size <= 50 * 1024; // 50kb
     })
-    .test(
-      "fileType",
-      "Unsupported file format (only JPEG/PNG)",
-      function (value) {
-        if (!value) return true; // image is optional
-        return ["image/jpeg", "image/png", "image/jpg"].includes(value.type);
-      },
-    )
+    .test("fileType", "Unsupported file format (only JPEG/PNG)", function (value) {
+      if (!value) return true; // image is optional
+      return ["image/jpeg", "image/png", "image/jpg"].includes(value.type);
+    })
     .nullable(), // Make the image field completely optional
 });
 

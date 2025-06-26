@@ -16,10 +16,7 @@
     <!-- Table Content -->
     <div v-else>
       <div class="overflow-x-auto">
-        <table
-          class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
-          v-if="data.length"
-        >
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" v-if="data.length">
           <thead class="bg-gray-50 dark:bg-gray-700">
             <tr>
               <th
@@ -28,16 +25,10 @@
                 :class="[
                   'px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider',
                   header.column.columnDef.meta?.hiddenClass || '',
-                  header.column.getCanSort()
-                    ? 'cursor-pointer select-none'
-                    : '',
+                  header.column.getCanSort() ? 'cursor-pointer select-none' : '',
                 ]"
                 scope="col"
-                @click="
-                  header.column.getCanSort()
-                    ? header.column.toggleSorting()
-                    : null
-                "
+                @click="header.column.getCanSort() ? header.column.toggleSorting() : null"
               >
                 <div class="flex items-center justify-between">
                   <FlexRender
@@ -91,9 +82,7 @@
               </th>
             </tr>
           </thead>
-          <tbody
-            class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
-          >
+          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
             <tr
               v-for="row in table.getRowModel().rows"
               :key="row.id"
@@ -107,21 +96,15 @@
                   cell.column.columnDef.meta?.hiddenClass || '',
                   cell.column.columnDef.meta?.nowrap ? 'whitespace-nowrap' : '',
                   cell.column.columnDef.meta?.fontWeight ? 'font-medium' : '',
-                  cell.column.columnDef.meta?.textColor ||
-                    'text-gray-500 dark:text-gray-300',
+                  cell.column.columnDef.meta?.textColor || 'text-gray-500 dark:text-gray-300',
                 ]"
               >
-                <FlexRender
-                  :render="cell.column.columnDef.cell"
-                  :props="cell.getContext()"
-                />
+                <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
               </td>
             </tr>
           </tbody>
         </table>
-        <div v-else class="p-8 text-center text-gray-500 dark:text-gray-400">
-          No data available
-        </div>
+        <div v-else class="p-8 text-center text-gray-500 dark:text-gray-400">No data available</div>
       </div>
       <!-- Pagination -->
       <div
@@ -137,9 +120,7 @@
           >
             Previous
           </button>
-          <span
-            class="text-sm text-gray-700 dark:text-gray-300 mx-2 self-center"
-          >
+          <span class="text-sm text-gray-700 dark:text-gray-300 mx-2 self-center">
             Page {{ currentPage }} of {{ totalPages }}
           </span>
           <button
@@ -152,9 +133,7 @@
         </div>
 
         <!-- Desktop Pagination -->
-        <div
-          class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between w-full"
-        >
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between w-full">
           <div class="flex items-center space-x-2">
             <p class="text-sm text-gray-700 dark:text-gray-300">Show</p>
             <select
@@ -162,11 +141,7 @@
               @change="$emit('items-per-page-change', $event.target.value)"
               class="block w-20 pl-3 pr-8 py-1 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md dark:bg-gray-600 dark:text-white dark:border-gray-500"
             >
-              <option
-                v-for="option in itemsPerPageOptions"
-                :key="option"
-                :value="option"
-              >
+              <option v-for="option in itemsPerPageOptions" :key="option" :value="option">
                 {{ option }}
               </option>
             </select>
@@ -175,9 +150,7 @@
           <div>
             <p class="text-sm text-gray-700 dark:text-gray-300">
               Showing
-              <span class="font-medium">{{
-                (currentPage - 1) * itemsPerPage + 1
-              }}</span>
+              <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
               to
               <span class="font-medium">{{
                 Math.min(currentPage * itemsPerPage, totalItems)
@@ -186,9 +159,7 @@
             </p>
           </div>
           <div>
-            <nav
-              class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-            >
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
               <button
                 @click="$emit('prev-page')"
                 :disabled="currentPage === 1"
@@ -211,11 +182,7 @@
               </button>
               <template v-for="page in visiblePages" :key="page">
                 <button
-                  v-if="
-                    Math.abs(page - currentPage) <= 2 ||
-                    page === 1 ||
-                    page === totalPages
-                  "
+                  v-if="Math.abs(page - currentPage) <= 2 || page === 1 || page === totalPages"
                   @click="$emit('page-change', page)"
                   :class="[
                     page === currentPage
@@ -263,12 +230,7 @@
 
 <script setup>
 import { computed, h } from "vue";
-import {
-  FlexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useVueTable,
-} from "@tanstack/vue-table";
+import { FlexRender, getCoreRowModel, getSortedRowModel, useVueTable } from "@tanstack/vue-table";
 
 const props = defineProps({
   data: {
@@ -373,8 +335,8 @@ const tableColumns = computed(() => {
                   "text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-2 sm:mr-4",
                 onClick: () => emit("edit", row.original),
               },
-              "Edit",
-            ),
+              "Edit"
+            )
           );
         }
         if (props.showDelete) {
@@ -382,12 +344,11 @@ const tableColumns = computed(() => {
             h(
               "button",
               {
-                class:
-                  "text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300",
+                class: "text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300",
                 onClick: () => emit("delete", row.original.id || row.original),
               },
-              "Delete",
-            ),
+              "Delete"
+            )
           );
         }
         return h("div", { class: "flex space-x-2" }, buttons);
@@ -412,10 +373,7 @@ const table = useVueTable({
 const visiblePages = computed(() => {
   const maxVisiblePages = 5;
   const pages = [];
-  let startPage = Math.max(
-    1,
-    props.currentPage - Math.floor(maxVisiblePages / 2),
-  );
+  let startPage = Math.max(1, props.currentPage - Math.floor(maxVisiblePages / 2));
   let endPage = startPage + maxVisiblePages - 1;
 
   if (endPage > props.totalPages) {

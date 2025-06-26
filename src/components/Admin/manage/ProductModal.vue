@@ -4,9 +4,7 @@
       <div
         class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
       >
-        <span
-          class="hidden sm:inline-block sm:align-middle sm:h-screen"
-          aria-hidden="true"
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"
           >&#8203;</span
         >
 
@@ -44,9 +42,7 @@
                 </svg>
               </div>
               <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                <h3
-                  class="text-lg leading-6 font-medium text-gray-900 dark:text-white"
-                >
+                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
                   {{ mode === "add" ? "Add New Product" : "Edit Product" }}
                 </h3>
                 <div class="mt-4 space-y-4">
@@ -117,10 +113,7 @@
                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                       :class="{ 'border-red-500': errors.description }"
                     ></textarea>
-                    <p
-                      v-if="errors.description"
-                      class="mt-1 text-sm text-red-600"
-                    >
+                    <p v-if="errors.description" class="mt-1 text-sm text-red-600">
                       {{ errors.description }}
                     </p>
                   </div>
@@ -160,9 +153,7 @@
                       class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                       :class="{ 'border-red-500': errors.category }"
                     >
-                      <option v-if="mode === 'add'" value="">
-                        Select a category
-                      </option>
+                      <option v-if="mode === 'add'" value="">Select a category</option>
                       <option value="Electronics">Electronics</option>
                       <option value="Clothes">Clothes</option>
                       <option value="Furniture">Furniture</option>
@@ -176,18 +167,14 @@
               </div>
             </div>
           </div>
-          <div
-            class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"
-          >
+          <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <button
               type="button"
               @click="submitForm"
               :disabled="isSubmitting"
               class="lg:ml-3 md:ml-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               :class="
-                mode === 'add'
-                  ? 'bg-green-600 hover:bg-green-700'
-                  : 'bg-blue-600 hover:bg-blue-700'
+                mode === 'add' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'
               "
             >
               <span v-if="!isSubmitting">{{
@@ -289,10 +276,7 @@ const schema = computed(() => {
       .required("Price is required"),
     category: yup
       .string()
-      .oneOf(
-        ["Electronics", "Clothes", "Furniture", "Books"],
-        "Invalid category",
-      )
+      .oneOf(["Electronics", "Clothes", "Furniture", "Books"], "Invalid category")
       .required("Category is required"),
   };
 
@@ -316,35 +300,35 @@ watch(
   () => form.value.title,
   () => {
     if (touched.value.title) validateField("title");
-  },
+  }
 );
 
 watch(
   () => form.value.image,
   () => {
     if (touched.value.image) validateField("image");
-  },
+  }
 );
 
 watch(
   () => form.value.description,
   () => {
     if (touched.value.description) validateField("description");
-  },
+  }
 );
 
 watch(
   () => form.value.price,
   () => {
     if (touched.value.price) validateField("price");
-  },
+  }
 );
 
 watch(
   () => form.value.category,
   () => {
     if (touched.value.category) validateField("category");
-  },
+  }
 );
 
 const validateField = async (field) => {
@@ -531,15 +515,11 @@ const submitForm = async () => {
   } catch (error) {
     if (error.response) {
       toast.error(
-        error.response?.message ||
-          `Failed to ${props.mode === "add" ? "add" : "update"} product`,
+        error.response?.message || `Failed to ${props.mode === "add" ? "add" : "update"} product`
       );
     } else {
       toast.error("Network error occurred");
-      console.error(
-        `Error ${props.mode === "add" ? "adding" : "updating"} product:`,
-        error,
-      );
+      console.error(`Error ${props.mode === "add" ? "adding" : "updating"} product:`, error);
     }
   } finally {
     isSubmitting.value = false;

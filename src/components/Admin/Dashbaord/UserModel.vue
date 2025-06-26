@@ -4,9 +4,7 @@
       <div
         class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
       >
-        <span
-          class="hidden sm:inline-block sm:align-middle sm:h-screen"
-          aria-hidden="true"
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"
           >&#8203;</span
         >
 
@@ -44,9 +42,7 @@
                 </svg>
               </div>
               <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                <h3
-                  class="text-lg leading-6 font-medium text-gray-900 dark:text-white"
-                >
+                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">
                   {{ mode === "add" ? "Add New User" : "Edit User" }}
                 </h3>
                 <div class="mt-4 space-y-4">
@@ -110,12 +106,7 @@
                         class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-500"
                         @click="togglePasswordVisibility"
                       >
-                        <svg
-                          class="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -160,23 +151,17 @@
               </div>
             </div>
           </div>
-          <div
-            class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"
-          >
+          <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <button
               type="button"
               @click="submitForm"
               :disabled="isSubmitting"
               class="lg:ml-3 md:ml-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               :class="
-                mode === 'add'
-                  ? 'bg-green-600 hover:bg-green-700'
-                  : 'bg-blue-600 hover:bg-blue-700'
+                mode === 'add' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'
               "
             >
-              <span v-if="!isSubmitting">{{
-                mode === "add" ? "Add User" : "Save Changes"
-              }}</span>
+              <span v-if="!isSubmitting">{{ mode === "add" ? "Add User" : "Save Changes" }}</span>
               <span v-else class="flex items-center">
                 <svg
                   class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
@@ -270,10 +255,7 @@ const schema = computed(() => {
   // Edit mode schema
   return yup.object().shape({
     ...baseSchema,
-    role: yup
-      .string()
-      .oneOf(["admin", "user"], "Invalid role")
-      .required("Role is required"),
+    role: yup.string().oneOf(["admin", "user"], "Invalid role").required("Role is required"),
   });
 });
 
@@ -282,28 +264,28 @@ watch(
   () => form.value.name,
   () => {
     if (touched.value.name) validateField("name");
-  },
+  }
 );
 
 watch(
   () => form.value.email,
   () => {
     if (touched.value.email) validateField("email");
-  },
+  }
 );
 
 watch(
   () => form.value.password,
   () => {
     if (touched.value.password) validateField("password");
-  },
+  }
 );
 
 watch(
   () => form.value.role,
   () => {
     if (touched.value.role) validateField("role");
-  },
+  }
 );
 
 const togglePasswordVisibility = () => {
@@ -393,9 +375,7 @@ const resetForm = () => {
   showPassword.value = false;
 };
 
-const isSuperAdmin = computed(
-  () => localStorage.getItem("userRole") === "superadmin",
-);
+const isSuperAdmin = computed(() => localStorage.getItem("userRole") === "superadmin");
 
 const submitForm = async () => {
   // Mark all fields as touched on submit
@@ -434,7 +414,7 @@ const submitForm = async () => {
             key: "forceLogout",
             newValue: "true",
             storageArea: localStorage,
-          }),
+          })
         );
       }
 
@@ -444,13 +424,9 @@ const submitForm = async () => {
     close();
   } catch (error) {
     toast.error(
-      error.response?.data?.message ||
-        `Failed to ${props.mode === "add" ? "add" : "update"} user`,
+      error.response?.data?.message || `Failed to ${props.mode === "add" ? "add" : "update"} user`
     );
-    console.error(
-      `Error ${props.mode === "add" ? "adding" : "updating"} user:`,
-      error,
-    );
+    console.error(`Error ${props.mode === "add" ? "adding" : "updating"} user:`, error);
   } finally {
     isSubmitting.value = false;
   }

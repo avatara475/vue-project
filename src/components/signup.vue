@@ -1,19 +1,13 @@
 <template>
-  <div
-    class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
-  >
+  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
       <div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Create your account
-        </h2>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Create your account</h2>
       </div>
       <form class="mt-8 space-y-6" @submit.prevent="handleSubmit">
         <div class="rounded-md space-y-4">
           <div>
-            <label for="name" class="block text-sm font-medium text-gray-700"
-              >Full Name</label
-            >
+            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
             <input
               id="name"
               v-model="form.name"
@@ -31,9 +25,7 @@
           </div>
 
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700"
-              >Email address</label
-            >
+            <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
             <input
               id="email"
               v-model="form.email"
@@ -51,11 +43,7 @@
           </div>
 
           <div>
-            <label
-              for="password"
-              class="block text-sm font-medium text-gray-700"
-              >Password</label
-            >
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <div class="relative mt-1">
               <input
                 id="password"
@@ -73,12 +61,7 @@
                 class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-500"
                 @click="togglePasswordVisibility"
               >
-                <svg
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -98,9 +81,7 @@
           </div>
 
           <div>
-            <label
-              for="confirmPassword"
-              class="block text-sm font-medium text-gray-700"
+            <label for="confirmPassword" class="block text-sm font-medium text-gray-700"
               >Confirm Password</label
             >
             <div class="relative mt-1">
@@ -120,12 +101,7 @@
                 class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-500"
                 @click="toggleConfirmPasswordVisibility"
               >
-                <svg
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -179,9 +155,7 @@
           <div class="text-center mt-1">
             <span class="text-gray-800"
               >Already have an account?
-              <router-link to="/login" class="text-blue-600 ml-2"
-                >Login</router-link
-              ></span
+              <router-link to="/login" class="text-blue-600 ml-2">Login</router-link></span
             >
           </div>
         </div>
@@ -225,14 +199,8 @@ const isSubmitting = ref(false);
 
 // Validation schema
 const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required("Name is required")
-    .min(3, "Name must be at least 3 characters"),
-  email: yup
-    .string()
-    .email("Please enter a valid email address")
-    .required("Email is required"),
+  name: yup.string().required("Name is required").min(3, "Name must be at least 3 characters"),
+  email: yup.string().email("Please enter a valid email address").required("Email is required"),
   password: yup
     .string()
     .min(6, "Password must be at least 6 characters")

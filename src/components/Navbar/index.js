@@ -82,11 +82,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta.allowedRoles && !to.meta.allowedRoles.includes(userRole)) {
       // Redirect to appropriate page based on role
       const redirectPath =
-        userRole === "admin"
-          ? "/admin"
-          : userRole === "superadmin"
-            ? "/super"
-            : "/";
+        userRole === "admin" ? "/admin" : userRole === "superadmin" ? "/super" : "/";
       return next(redirectPath);
     }
   }
@@ -95,11 +91,7 @@ router.beforeEach((to, from, next) => {
   if ((to.name === "Login" || to.name === "Signup") && isAuthenticated) {
     // Redirect to appropriate dashboard based on role
     const redirectPath =
-      userRole === "admin"
-        ? "/admin"
-        : userRole === "superadmin"
-          ? "/super"
-          : "/";
+      userRole === "admin" ? "/admin" : userRole === "superadmin" ? "/super" : "/";
     return next(redirectPath);
   }
 

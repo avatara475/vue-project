@@ -15,14 +15,10 @@
     <div v-else>
       <div class="flex flex-col sm:flex-row gap-4 mb-6">
         <!-- Total Admins Card -->
-        <div
-          class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1 min-w-[250px]"
-        >
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1 min-w-[250px]">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Total Admins
-              </p>
+              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Admins</p>
               <p class="text-2xl font-semibold text-gray-900 dark:text-white">
                 {{ totalAdmin }}
               </p>
@@ -49,14 +45,10 @@
         </div>
 
         <!-- Total Users Card -->
-        <div
-          class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1 min-w-[250px]"
-        >
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex-1 min-w-[250px]">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Total Users
-              </p>
+              <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Users</p>
               <p class="text-2xl font-semibold text-gray-900 dark:text-white">
                 {{ totalUsers }}
               </p>
@@ -84,10 +76,7 @@
       </div>
 
       <div class="mb-3 flex justify-between">
-        <UserInfoModal
-          btitle="Show SuperAdmin Info"
-          title="SuperAdmin Information"
-        />
+        <UserInfoModal btitle="Show SuperAdmin Info" title="SuperAdmin Information" />
 
         <button
           @click="openAddModal"
@@ -96,24 +85,14 @@
           Add New User
         </button>
       </div>
-      <div
-        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6"
-      >
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <h1 class="text-2xl font-bold text-blue-600">Admin Management</h1>
 
-        <div
-          class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-end sm:items-center"
-        >
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-end sm:items-center">
           <!-- Search Input -->
           <div class="relative flex-grow min-w-[200px]">
-            <div
-              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-            >
-              <svg
-                class="h-5 w-5 text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fill-rule="evenodd"
                   d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
@@ -218,15 +197,13 @@ const adminColumns = [
           class: {
             "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200":
               props.value === "admin",
-            "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200":
-              props.value === "user",
+            "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200": props.value === "user",
             "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200":
               props.value === "superadmin",
           },
-          class:
-            "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
+          class: "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
         },
-        props.value,
+        props.value
       ),
   },
 ];
@@ -238,8 +215,7 @@ const handleApiError = (err) => {
     return true;
   }
 
-  error.value =
-    err.response?.data?.message || err.message || "An error occurred";
+  error.value = err.response?.data?.message || err.message || "An error occurred";
   console.error("API Error:", err);
   return false;
 };
@@ -259,8 +235,7 @@ const confirmDelete = async () => {
     await fetchAdmins();
   } catch (err) {
     if (!handleApiError(err)) {
-      error.value =
-        err.response?.data?.message || err.message || "Failed to delete admin";
+      error.value = err.response?.data?.message || err.message || "Failed to delete admin";
     }
   } finally {
     adminToDelete.value = null;
@@ -284,12 +259,8 @@ const fetchAdmins = async () => {
     const response = await api.get("/auth/superadmin/getadmins", { params });
 
     admins.value = response.users;
-    totalAdmin.value = response.users.filter(
-      (admin) => admin.role === "admin",
-    ).length;
-    totalUsers.value = response.users.filter(
-      (user) => user.role === "user",
-    ).length;
+    totalAdmin.value = response.users.filter((admin) => admin.role === "admin").length;
+    totalUsers.value = response.users.filter((user) => user.role === "user").length;
     totalUsersCount.value = response.totalusers || 0;
     totalPages.value = Math.ceil(totalUsersCount.value / itemsPerPage.value);
   } catch (err) {

@@ -6,20 +6,12 @@
     </div>
 
     <!-- Search and Filter Controls -->
-    <div
-      class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4"
-    >
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
       <div class="flex flex-col sm:flex-row gap-4 w-full">
         <!-- Search Input -->
         <div class="relative flex-grow">
-          <div
-            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-          >
-            <svg
-              class="h-5 w-5 text-gray-400"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fill-rule="evenodd"
                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
@@ -74,10 +66,7 @@
     </div>
 
     <!-- Error State -->
-    <div
-      v-else-if="error"
-      class="p-4 bg-red-100 text-red-700 rounded text-center"
-    >
+    <div v-else-if="error" class="p-4 bg-red-100 text-red-700 rounded text-center">
       {{ error }}
     </div>
 
@@ -104,10 +93,7 @@
               :alt="product.title"
               class="w-full h-full object-cover"
             />
-            <div
-              v-else
-              class="w-full h-full flex items-center justify-center text-gray-400"
-            >
+            <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-12 w-12"
@@ -134,12 +120,8 @@
               {{ product.description }}
             </p>
             <div class="flex justify-between items-center">
-              <span class="text-lg font-bold text-blue-600"
-                >${{ product.price }}</span
-              >
-              <span
-                class="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full"
-              >
+              <span class="text-lg font-bold text-blue-600">${{ product.price }}</span>
+              <span class="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full">
                 {{ product.category }}
               </span>
             </div>
@@ -174,9 +156,7 @@
             Next
           </button>
         </div>
-        <div
-          class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
-        >
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
           <div class="flex items-center space-x-2">
             <p class="text-sm text-gray-700 dark:text-gray-300">Show</p>
             <select
@@ -184,24 +164,16 @@
               @change="handleItemsPerPageChange"
               class="block w-20 pl-1 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-600 dark:text-white dark:border-gray-500"
             >
-              <option
-                v-for="option in itemsPerPageOptions"
-                :key="option"
-                :value="option"
-              >
+              <option v-for="option in itemsPerPageOptions" :key="option" :value="option">
                 {{ option }}
               </option>
             </select>
-            <p class="text-sm text-gray-700 dark:text-gray-300">
-              items per page
-            </p>
+            <p class="text-sm text-gray-700 dark:text-gray-300">items per page</p>
           </div>
           <div>
             <p class="text-sm text-gray-700 dark:text-gray-300">
               Showing
-              <span class="font-medium">{{
-                (currentPage - 1) * itemsPerPage + 1
-              }}</span>
+              <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
               to
               <span class="font-medium">{{
                 Math.min(currentPage * itemsPerPage, totalProducts)
@@ -275,7 +247,6 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { debounce } from "lodash";
@@ -305,10 +276,7 @@ const debouncedSearch = debounce(() => {
 const visiblePages = computed(() => {
   const maxVisiblePages = 5;
   const pages = [];
-  let startPage = Math.max(
-    1,
-    currentPage.value - Math.floor(maxVisiblePages / 2),
-  );
+  let startPage = Math.max(1, currentPage.value - Math.floor(maxVisiblePages / 2));
   let endPage = startPage + maxVisiblePages - 1;
 
   if (endPage > totalPages.value) {
