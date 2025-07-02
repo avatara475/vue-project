@@ -10,13 +10,13 @@ const routes = [
   {
     path: "/admin",
     name: "Admin",
-    component: () => import("../Admin/Dashbaord/Admin.vue"),
+    component: () => import("../Admin/Dashbaord/AdminPage.vue"),
     meta: { requiresAuth: true, allowedRoles: ["admin"] },
   },
   {
     path: "/manage",
     name: "Manage",
-    component: () => import("../Admin/manage/manage.vue"),
+    component: () => import("../Admin/manage/managePage.vue"),
     meta: { requiresAuth: true, allowedRoles: ["admin"] },
   },
   {
@@ -34,13 +34,13 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../login.vue"),
+    component: () => import("../loginPage.vue"),
     meta: { requiresAuth: false },
   },
   {
     path: "/signup",
     name: "Signup",
-    component: () => import("../signup.vue"),
+    component: () => import("../signupPage.vue"),
     meta: { requiresAuth: false },
   },
   {

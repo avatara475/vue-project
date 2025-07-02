@@ -168,8 +168,9 @@
             </div>
           </div>
           <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button
+            <motion.button
               type="button"
+              :whileHover="{scale:'1.025'}"
               @click="submitForm"
               :disabled="isSubmitting"
               class="lg:ml-3 md:ml-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
@@ -203,14 +204,15 @@
                 </svg>
                 {{ mode === "add" ? "Adding..." : "Updating..." }}
               </span>
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               type="button"
+              :whileHover="{scale:'1.025'}"
               @click="close"
               class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-600 dark:text-white dark:border-gray-500"
             >
               Cancel
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
@@ -223,6 +225,7 @@ import { ref, watch, computed } from "vue";
 import { useToast } from "vue-toastification";
 import * as yup from "yup";
 import api from "@/api";
+import { motion } from 'motion-v'
 
 const props = defineProps({
   mode: {

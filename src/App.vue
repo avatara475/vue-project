@@ -1,6 +1,6 @@
 <script setup>
-import Navbar from "./components/Navbar/Navbar.vue";
-import Footer from "./components/Footer.vue";
+import Navbar from "./components/Navbar/NavbarPage.vue";
+import Footer from "./components/FooterPage.vue";
 
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
@@ -23,8 +23,8 @@ onMounted(() => {
 
 <template>
   <div>
-    <Navbar />
+    <Navbar/>
     <router-view v-if="isRouterReady" />
-    <Footer />
+    <Footer/>
   </div>
 </template>

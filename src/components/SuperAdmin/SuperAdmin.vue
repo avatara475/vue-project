@@ -23,8 +23,9 @@
                 {{ totalAdmin }}
               </p>
             </div>
-            <div
-              class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-200"
+            <motion.div
+            :whileHover="{rotateY: '180deg', scale: 1.1}"
+            class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-200"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +41,7 @@
                   d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
                 />
               </svg>
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -53,7 +54,8 @@
                 {{ totalUsers }}
               </p>
             </div>
-            <div
+            <motion.div
+            :whileHover="{rotateY: '180deg', scale: 1.1}"
               class="p-3 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-200"
             >
               <svg
@@ -70,7 +72,7 @@
                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                 />
               </svg>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -78,12 +80,13 @@
       <div class="mb-3 flex justify-between">
         <UserInfoModal btitle="Show SuperAdmin Info" title="SuperAdmin Information" />
 
-        <button
+        <motion.button
+          :whileHover="{scale:'1.025'}"
           @click="openAddModal"
           class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Add New User
-        </button>
+        </motion.button>
       </div>
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <h1 class="text-2xl font-bold text-blue-600">Admin Management</h1>
@@ -152,6 +155,7 @@ import UserInfoModal from "../User/HomePage/UserInfoModal.vue";
 import ReusableTable from "@/ReusableTable.vue";
 import api from "@/api";
 import UserModal from "../Admin/Dashbaord/UserModel.vue";
+import { motion } from "motion-v";
 
 const admins = ref([]);
 const totalAdmin = ref(0);

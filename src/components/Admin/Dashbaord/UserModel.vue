@@ -152,11 +152,12 @@
             </div>
           </div>
           <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <button
+            <motion.button
               type="button"
+              :whileHover="{scale:'1.025'}"
               @click="submitForm"
               :disabled="isSubmitting"
-              class="lg:ml-3 md:ml-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              class="lg:ml-3 md:ml-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               :class="
                 mode === 'add' ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'
               "
@@ -185,14 +186,15 @@
                 </svg>
                 {{ mode === "add" ? "Adding..." : "Saving..." }}
               </span>
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              :whileHover="{scale:'1.025'}"
               type="button"
               @click="close"
-              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-600 dark:text-white dark:border-gray-500"
+              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-600 dark:text-white dark:border-gray-500 cursor-pointer"
             >
               Cancel
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
@@ -205,6 +207,7 @@ import { ref, watch, computed } from "vue";
 import { useToast } from "vue-toastification";
 import * as yup from "yup";
 import api from "@/api";
+import { motion } from 'motion-v'
 
 const props = defineProps({
   mode: {

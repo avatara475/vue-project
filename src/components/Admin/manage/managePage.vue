@@ -48,22 +48,24 @@
                 class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
-            <button
+            <motion.button
+            :whileHover="{scale:'1.025'}"
               @click="applyPriceFilter"
               class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm w-full xs:w-auto"
             >
               Filter
-            </button>
+            </motion.button>
           </div>
         </div>
 
         <!-- Add Product Button -->
-        <button
+        <motion.button
+        :whileHover="{scale:'1.025'}"
           @click="openAddModal"
           class="px-3 py-2 sm:px-4 sm:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base w-full sm:w-auto"
         >
           Add Product
-        </button>
+        </motion.button>
       </div>
     </div>
 
@@ -107,6 +109,7 @@ import ConfirmationModal from "../Dashbaord/ConfirmationModal.vue";
 import ReusableTable from "@/ReusableTable.vue";
 import ProductModal from "./ProductModal.vue";
 import api from "@/api";
+import { motion } from "motion-v";
 
 const toast = useToast();
 const products = ref([]);

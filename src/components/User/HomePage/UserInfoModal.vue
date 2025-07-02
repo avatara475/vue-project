@@ -1,12 +1,13 @@
 <template>
   <div>
     <!-- Button to trigger user info modal -->
-    <button
+    <motion.button
+     :whileHover="{scale:1.025}"
       @click="fetchUserData"
       class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition cursor-pointer"
     >
       {{ btitle }}
-    </button>
+    </motion.button>
 
     <!-- User Information Modal -->
     <div
@@ -122,7 +123,7 @@
                 @blur="handleBlur('name')"
                 @input="handleInput('name')"
                 :class="{ 'border-red-500': errors.name }"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:scale-101"
                 id="name"
                 type="text"
               />
@@ -215,6 +216,7 @@ import { ref } from "vue";
 import * as yup from "yup";
 import { useToast } from "vue-toastification";
 import api from "@/api"; // Import the API middleware
+import { motion } from 'motion-v'
 
 const props = defineProps({
   btitle: {

@@ -83,8 +83,9 @@
             </tr>
           </thead>
           <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-            <tr
+            <motion.tr
               v-for="row in table.getRowModel().rows"
+              :whileHover="{scaleY:'1.1',scaleX:'1.01'}"
               :key="row.id"
               class="hover:bg-gray-50 dark:hover:bg-gray-700"
             >
@@ -101,7 +102,7 @@
               >
                 <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
               </td>
-            </tr>
+            </motion.tr>
           </tbody>
         </table>
         <div v-else class="p-8 text-center text-gray-500 dark:text-gray-400">No data available</div>
@@ -231,6 +232,7 @@
 <script setup>
 import { computed, h } from "vue";
 import { FlexRender, getCoreRowModel, getSortedRowModel, useVueTable } from "@tanstack/vue-table";
+import { motion } from "motion-v";
 
 const props = defineProps({
   data: {

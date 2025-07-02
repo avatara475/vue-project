@@ -47,12 +47,13 @@
             placeholder="Max"
             class="w-20 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
-          <button
+          <motion.button
+           :whileHover="{ scale: 1.025 }"
             @click="applyPriceFilter"
             class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           >
             Filter
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>
@@ -76,8 +77,11 @@
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         v-if="products.length"
       >
-        <div
+        <motion.div
           v-for="product in products"
+          :whileHover="{scale:1.05}"
+          :initial="{ y: 20, opacity: 0 }"
+          :animate="{ y: 0, opacity: 1 }"
           :key="product.id"
           class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
@@ -132,12 +136,15 @@
               Add to Cart
             </button> -->
           </div>
-        </div>
+        </motion.div>
       </div>
       <div v-else class="text-center">No Product Available</div>
 
       <!-- Pagination -->
-      <div
+      <motion.div
+        :initial="{ opacity: 0 }"
+        :animate="{ opacity: 1 }"
+        :transition="{ delay: 0.5, duration: 0.3 }"
         class="mt-8 bg-gray-50 dark:bg-gray-700 px-4 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-600 sm:px-6"
       >
         <div class="flex-1 flex justify-between sm:hidden">
@@ -242,7 +249,7 @@
             </nav>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   </div>
 </template>
@@ -252,6 +259,7 @@ import { ref, onMounted, computed } from "vue";
 import { debounce } from "lodash";
 import UserInfoModal from "./UserInfoModal.vue";
 import api from "@/api"; // Import your API middleware
+import { motion } from 'motion-v'
 
 const products = ref([]);
 const loading = ref(true);
@@ -272,6 +280,11 @@ const debouncedSearch = debounce(() => {
   currentPage.value = 1; // Reset to first page when searching
   fetchProducts();
 }, 500);
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
 
 const visiblePages = computed(() => {
   const maxVisiblePages = 5;
